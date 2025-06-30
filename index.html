@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная | MovieSite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1', 'primary-dark': '#4F46E5', 
+                        secondary: '#10B981', 'secondary-dark': '#059669', 
+                        background: '#F3F4F6'
+                    },
+                    borderRadius: { 'button': '0.5rem' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <!-- Remixicon CDN для иконок -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col bg-background">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary">MovieSite</a>
+            <nav>
+                <!-- Меню для неавторизованных (гостей) -->
+                <ul id="nav-guest" class="flex items-center space-x-4" style="display: none;">
+                    <li><a href="login.html" class="text-gray-700 hover:text-primary transition-colors">Войти</a></li>
+                    <li><a href="register.html" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-primary-dark transition-colors">Регистрация</a></li>
+                </ul>
+                <!-- Меню для авторизованных пользователей -->
+                <ul id="nav-user" class="flex items-center space-x-6" style="display: none;">
+                    <li><a href="index.html" class="transition-colors">Главная</a></li>
+                    <li><a href="catalog.html" class="transition-colors">Каталог</a></li>
+                    <li><a href="recommendations.html" class="transition-colors">Рекомендации</a></li>
+                    <li>
+                        <a href="profile.html" id="nav-profile-link" class="flex items-center gap-2 transition-colors">
+                            <i class="ri-user-fill"></i>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li>
+                        <button id="logout-btn" class="text-gray-500 hover:text-red-500" title="Выйти">
+                            <i class="ri-logout-box-r-line text-2xl align-middle"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <!-- Секция "Новинки кино" -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Новинки кино</h2>
+            <div class="relative">
+                <div class="flex overflow-x-scroll gap-6 pb-4 scroll-container" id="new-movies-container">
+                    <div class="text-gray-500">Загрузка фильмов...</div>
+                </div>
+                <button id="prev-new" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow-md hover:bg-opacity-100 hidden md:block">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                </button>
+                <button id="next-new" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow-md hover:bg-opacity-100 hidden md:block">
+                    <i class="ri-arrow-right-s-line text-2xl"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Секция "Популярные фильмы" -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Популярные фильмы</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6" id="popular-movies-container">
+                <div class="text-gray-500">Загрузка фильмов...</div>
+            </div>
+        </section>
+
+        <!-- Секция "Рекомендуемые для вас" -->
+        <section class="mb-10">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Рекомендуемые для вас</h2>
+            <div class="relative">
+                <div class="flex overflow-x-scroll gap-6 pb-4 scroll-container" id="recommended-movies-container">
+                    <div class="text-gray-500">Загрузка фильмов...</div>
+                </div>
+                <button id="prev-rec" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow-md hover:bg-opacity-100 hidden md:block">
+                    <i class="ri-arrow-left-s-line text-2xl"></i>
+                </button>
+                <button id="next-rec" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow-md hover:bg-opacity-100 hidden md:block">
+                    <i class="ri-arrow-right-s-line text-2xl"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 MovieSite. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/toast.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

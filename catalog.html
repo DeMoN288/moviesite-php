@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог фильмов | MovieSite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#6366F1', 'primary-dark': '#4F46E5', secondary: '#10B981', 'secondary-dark': '#059669', background: '#F3F4F6' },
+                    borderRadius: { 'button': '0.5rem' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <!-- Remixicon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col bg-background">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary">MovieSite</a>
+            <nav>
+                <!-- Меню для неавторизованных (гостей) -->
+                <ul id="nav-guest" class="flex items-center space-x-4" style="display: none;">
+                    <li><a href="login.html" class="text-gray-700 hover:text-primary transition-colors">Войти</a></li>
+                    <li><a href="register.html" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-primary-dark transition-colors">Регистрация</a></li>
+                </ul>
+                <!-- Меню для авторизованных пользователей -->
+                <ul id="nav-user" class="flex items-center space-x-6" style="display: none;">
+                    <li><a href="index.html" class="transition-colors">Главная</a></li>
+                    <li><a href="catalog.html" class="transition-colors">Каталог</a></li>
+                    <li><a href="recommendations.html" class="transition-colors">Рекомендации</a></li>
+                    <li>
+                        <a href="profile.html" id="nav-profile-link" class="flex items-center gap-2 transition-colors">
+                            <i class="ri-user-fill"></i>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li>
+                        <button id="logout-btn" class="text-gray-500 hover:text-red-500" title="Выйти">
+                            <i class="ri-logout-box-r-line text-2xl align-middle"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8">Каталог фильмов</h1>
+
+        <div class="relative mb-6">
+            <input type="text" id="catalog-search-input" placeholder="Поиск по каталогу..." class="w-full py-2 pl-10 pr-4 !rounded-button border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm">
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"><i class="ri-search-line"></i></div>
+        </div>
+
+        <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6">Фильтры</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-8">
+                <!-- Жанры -->
+                <div class="md:col-span-1">
+                    <h3 class="text-lg font-semibold mb-2">Жанр</h3>
+                    <select id="genre-filter" class="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-primary">
+                        <option value="">Все жанры</option>
+                        <option value="Фантастика">Фантастика</option>
+                        <option value="Ужасы">Ужасы</option>
+                        <option value="Драма">Драма</option>
+                        <option value="Комедия">Комедия</option>
+                        <option value="Боевик">Боевик</option>
+                        <option value="Триллер">Триллер</option>
+                        <option value="Приключения">Приключения</option>
+                    </select>
+                </div>
+
+                <!-- Год выпуска -->
+                <div class="md:col-span-1">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold">Год выпуска</h3>
+                        <div class="text-sm font-medium text-gray-700">
+                            <span id="year-value-min">1980</span> - <span id="year-value-max">2024</span>
+                        </div>
+                    </div>
+                    <div class="range-slider-container">
+                        <div class="track"></div>
+                        <div id="year-range-track" class="range-track"></div>
+                        <input id="year-filter-min" type="range" min="1980" max="2024" value="1980">
+                        <input id="year-filter-max" type="range" min="1980" max="2024" value="2024">
+                    </div>
+                </div>
+
+                <!-- Рейтинг -->
+                <div class="md:col-span-1">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold">Рейтинг</h3>
+                        <div class="text-sm font-medium text-gray-700">
+                            <span id="rating-value-min">0.0</span> - <span id="rating-value-max">10.0</span>
+                        </div>
+                    </div>
+                    <div class="range-slider-container">
+                        <div class="track"></div>
+                        <div id="rating-range-track" class="range-track"></div>
+                        <input id="rating-filter-min" type="range" min="0" max="10" step="0.1" value="0">
+                        <input id="rating-filter-max" type="range" min="0" max="10" step="0.1" value="10">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-8">
+                <button id="reset-filters-btn" class="bg-gray-200 text-gray-700 px-5 py-2 rounded-button hover:bg-gray-300 transition-colors">Сбросить</button>
+            </div>
+        </section>
+
+        <div id="movie-grid-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center"><p>© 2025 MovieSite. Все права защищены.</p></div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/toast.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/catalog.js"></script>
+</body>
+</html>

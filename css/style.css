@@ -1,0 +1,189 @@
+/* css/style.css */
+
+/* --- ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ СТРАНИЦ --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6; /* Gray 100 */
+    color: #1F2937; /* Gray 800 */
+}
+
+.movie-card {
+    display: block;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease-in-out;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* --- НОВЫЕ КРАСИВЫЕ СТИЛИ ДЛЯ ДИАПАЗОННОГО ПОЛЗУНКА --- */
+.range-slider-container {
+    position: relative;
+    width: 100%;
+    height: 20px; /* Уменьшаем высоту для компактности */
+    display: flex;
+    align-items: center;
+}
+
+/* Общая дорожка (серая) */
+.range-slider-container .track {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #E5E7EB; /* gray-200 */
+    border-radius: 2px;
+}
+
+/* Заполненная дорожка (синяя) */
+.range-slider-container .range-track {
+    position: absolute;
+    height: 4px;
+    background-color: #6366F1; /* primary */
+    border-radius: 2px;
+}
+
+/* Стили для самих input-элементов */
+.range-slider-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    pointer-events: none; /* Клики проходят сквозь трек, но не сквозь бегунок */
+    margin: 0;
+}
+
+/* Стили для бегунка (thumb) */
+.range-slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #6366F1; /* primary */
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto; /* Бегунок можно схватить мышкой */
+    transition: transform 0.1s ease-in-out;
+}
+
+.range-slider-container input[type="range"]::-moz-range-thumb {
+    width: 14px; /* Для Firefox размеры могут отличаться */
+    height: 14px;
+    border-radius: 50%;
+    background: #6366F1;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Эффект при наведении на бегунок */
+.range-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+.range-slider-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+}/* css/style.css */
+
+/* --- ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ СТРАНИЦ --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6; /* Gray 100 */
+    color: #1F2937; /* Gray 800 */
+}
+
+.movie-card {
+    display: block;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease-in-out;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* --- НОВЫЕ КРАСИВЫЕ СТИЛИ ДЛЯ ДИАПАЗОННОГО ПОЛЗУНКА --- */
+.range-slider-container {
+    position: relative;
+    width: 100%;
+    height: 20px; /* Уменьшаем высоту для компактности */
+    display: flex;
+    align-items: center;
+}
+
+/* Общая дорожка (серая) */
+.range-slider-container .track {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #E5E7EB; /* gray-200 */
+    border-radius: 2px;
+}
+
+/* Заполненная дорожка (синяя) */
+.range-slider-container .range-track {
+    position: absolute;
+    height: 4px;
+    background-color: #6366F1; /* primary */
+    border-radius: 2px;
+}
+
+/* Стили для самих input-элементов */
+.range-slider-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    pointer-events: none; /* Клики проходят сквозь трек, но не сквозь бегунок */
+    margin: 0;
+}
+
+/* Стили для бегунка (thumb) */
+.range-slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #6366F1; /* primary */
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto; /* Бегунок можно схватить мышкой */
+    transition: transform 0.1s ease-in-out;
+}
+
+.range-slider-container input[type="range"]::-moz-range-thumb {
+    width: 14px; /* Для Firefox размеры могут отличаться */
+    height: 14px;
+    border-radius: 50%;
+    background: #6366F1;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Эффект при наведении на бегунок */
+.range-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+.range-slider-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+}
+
+.tab-active {
+    border-bottom: 2px solid #6366F1; /* primary color */
+    color: #6366F1; /* primary color */
+    font-weight: 600;
+}

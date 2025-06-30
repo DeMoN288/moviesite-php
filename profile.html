@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя | MovieSite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#6366F1', 'primary-dark': '#4F46E5', secondary: '#10B981', 'secondary-dark': '#059669', background: '#F3F4F6' },
+                    borderRadius: { 'button': '0.5rem' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <!-- Remixicon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col bg-background">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary">MovieSite</a>
+            <nav>
+                <!-- Меню для неавторизованных (гостей) -->
+                <ul id="nav-guest" class="flex items-center space-x-4" style="display: none;">
+                    <li><a href="login.html" class="text-gray-700 hover:text-primary transition-colors">Войти</a></li>
+                    <li><a href="register.html" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-primary-dark transition-colors">Регистрация</a></li>
+                </ul>
+                <!-- Меню для авторизованных пользователей -->
+                <ul id="nav-user" class="flex items-center space-x-6" style="display: none;">
+                    <li><a href="index.html" class="transition-colors">Главная</a></li>
+                    <li><a href="catalog.html" class="transition-colors">Каталог</a></li>
+                    <li><a href="recommendations.html" class="transition-colors">Рекомендации</a></li>
+                    <li>
+                        <a href="profile.html" id="nav-profile-link" class="flex items-center gap-2 transition-colors">
+                            <i class="ri-user-fill"></i>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li>
+                        <button id="logout-btn" class="text-gray-500 hover:text-red-500" title="Выйти">
+                            <i class="ri-logout-box-r-line text-2xl align-middle"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div id="profile-content" class="hidden">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-8">Профиль пользователя</h1>
+
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-shrink-0">
+                    <img id="avatar-display" src="https://i.pravatar.cc/120?u=anonymous" alt="Аватар пользователя" class="w-32 h-32 rounded-full object-cover border-4 border-primary shadow-lg">
+                </div>
+                <div class="flex-grow text-center md:text-left w-full">
+                    <h2 id="username-display" class="text-3xl font-bold text-gray-900">Загрузка...</h2>
+                    <p id="user-id-display" class="text-gray-500 text-sm mt-1 mb-4">ID пользователя: ...</p>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-2xl font-bold mb-4">Настройки профиля</h3>
+                <form id="change-username-form">
+                    <div class="mb-4">
+                        <label for="new-username-input" class="block text-gray-700 font-medium mb-2">Сменить имя пользователя</label>
+                        <input type="text" id="new-username-input" class="w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Введите новый никнейм" required>
+                        <p id="username-message" class="text-sm mt-2 h-5"></p>
+                    </div>
+                    <button type="submit" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary-dark transition-colors font-semibold">Сохранить изменения</button>
+                </form>
+            </section>
+
+            <section class="bg-white rounded-lg shadow-md">
+                <div class="flex border-b border-gray-200">
+                    <button data-list="favorites" class="tab-btn px-6 py-4 text-lg text-gray-700 hover:text-primary transition-colors tab-active">Избранные</button>
+                    <button data-list="watched" class="tab-btn px-6 py-4 text-lg text-gray-700 hover:text-primary transition-colors">Просмотренные</button>
+                    <button data-list="planned" class="tab-btn px-6 py-4 text-lg text-gray-700 hover:text-primary transition-colors">В планах</button>
+                </div>
+                <div class="p-6">
+                    <div id="content-favorites" class="tab-content">
+                        <h3 class="text-2xl font-bold mb-4">Мои избранные фильмы</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+                    </div>
+                    <div id="content-watched" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold mb-4">Мои просмотренные фильмы</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+                    </div>
+                    <div id="content-planned" class="tab-content hidden">
+                        <h3 class="text-2xl font-bold mb-4">Фильмы в планах</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div id="auth-prompt" class="hidden text-center bg-white p-10 rounded-lg shadow-md max-w-2xl mx-auto">
+             <h1 class="text-3xl font-bold text-gray-800 mb-4">Доступ к профилю ограничен</h1>
+             <p class="text-gray-600 mb-6">Пожалуйста, войдите в свой аккаунт.</p>
+             <a href="login.html" class="bg-primary text-white px-8 py-3 rounded-button hover:bg-primary-dark transition-colors font-semibold">Войти</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center"><p>© 2025 MovieSite. Все права защищены.</p></div>
+    </footer>
+    
+    <!-- Скрипты -->
+    <script src="js/toast.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

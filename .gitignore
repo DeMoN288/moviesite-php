@@ -1,0 +1,16 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Файлы IDE/редакторов кода
+.idea/
+.vscode/
+
+# Пользовательские данные (чтобы не публиковать чужие логины и списки)
+# Мы загрузим пустые или демо-версии этих файлов
+/api/users.json
+/api/favorites.json
+/api/watched.json
+/api/planned.json
+/api/ratings.json
+/api/comments.json

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали фильма | MovieSite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1', 'primary-dark': '#4F46E5', 
+                        secondary: '#10B981', 'secondary-dark': '#059669', 
+                        background: '#F3F4F6'
+                    },
+                    borderRadius: { 'button': '0.5rem' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <!-- Remixicon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col bg-background">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary">MovieSite</a>
+            <nav>
+                <!-- Меню для неавторизованных (гостей) -->
+                <ul id="nav-guest" class="flex items-center space-x-4" style="display: none;">
+                    <li><a href="login.html" class="text-gray-700 hover:text-primary transition-colors">Войти</a></li>
+                    <li><a href="register.html" class="bg-primary text-white px-4 py-2 rounded-button hover:bg-primary-dark transition-colors">Регистрация</a></li>
+                </ul>
+                <!-- Меню для авторизованных пользователей -->
+                <ul id="nav-user" class="flex items-center space-x-6" style="display: none;">
+                    <li><a href="index.html" class="transition-colors">Главная</a></li>
+                    <li><a href="catalog.html" class="transition-colors">Каталог</a></li>
+                    <li><a href="recommendations.html" class="transition-colors">Рекомендации</a></li>
+                    <li>
+                        <a href="profile.html" id="nav-profile-link" class="flex items-center gap-2 transition-colors">
+                            <i class="ri-user-fill"></i>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li>
+                        <button id="logout-btn" class="text-gray-500 hover:text-red-500" title="Выйти">
+                            <i class="ri-logout-box-r-line text-2xl align-middle"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <button onclick="history.back()" class="flex items-center text-gray-700 hover:text-primary mb-6"><i class="ri-arrow-left-line mr-2"></i> Назад</button>
+
+        <section id="movie-details-section" class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row gap-8">
+            <div class="md:w-1/3 flex-shrink-0">
+                <img id="movie-poster" src="https://placehold.co/320x480?text=Постер" alt="Постер фильма" class="w-full h-auto rounded-lg shadow-md">
+            </div>
+            <div class="md:w-2/3 flex-grow">
+                <h1 id="movie-title" class="text-4xl font-extrabold text-gray-900 mb-4">Загрузка...</h1>
+                
+                <p class="text-lg text-gray-600 mb-2">Оригинальное название: <span id="movie-original-title" class="font-medium"></span></p>
+                <p class="text-lg text-gray-600 mb-2">Год выпуска: <span id="movie-year" class="font-medium"></span></p>
+                <p class="text-lg text-gray-600 mb-2">Жанр: <span id="movie-genre" class="font-medium"></span></p>
+                <p class="text-lg text-gray-600 mb-2">Режиссер: <span id="movie-director" class="font-medium"></span></p>
+                <p class="text-lg text-gray-600 mb-2">Длительность: <span id="movie-duration" class="font-medium"></span></p>
+                <p class="text-lg text-gray-600 mb-4">Рейтинг: <span id="movie-rating" class="font-bold text-primary text-xl"></span></p>
+
+                <!-- КНОПКИ УПРАВЛЕНИЯ -->
+                <div id="user-actions" class="hidden mt-4 space-y-2">
+                    <button data-list="favorites" class="list-btn w-full text-left bg-gray-200 text-gray-800 px-4 py-2 rounded-button hover:bg-gray-300 transition-colors flex items-center gap-2">
+                        <i class="ri-bookmark-line"></i>
+                        <span>Добавить в избранное</span>
+                    </button>
+                    <button data-list="watched" class="list-btn w-full text-left bg-gray-200 text-gray-800 px-4 py-2 rounded-button hover:bg-gray-300 transition-colors flex items-center gap-2">
+                        <i class="ri-eye-line"></i>
+                        <span>Добавить в просмотренные</span>
+                    </button>
+                    <button data-list="planned" class="list-btn w-full text-left bg-gray-200 text-gray-800 px-4 py-2 rounded-button hover:bg-gray-300 transition-colors flex items-center gap-2">
+                        <i class="ri-time-line"></i>
+                        <span>Запланировать просмотр</span>
+                    </button>
+                </div>
+
+                <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">Описание</h2>
+                <p id="movie-description" class="text-gray-700 leading-relaxed mb-6">Загрузка...</p>
+            </div>
+        </section>
+
+        <!-- БЛОК ОЦЕНОК И КОММЕНТАРИЕВ -->
+        <section id="interactions-section" class="mt-8">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold mb-4">Ваша оценка</h2>
+                <div id="rating-buttons" class="flex items-center gap-4">
+                    <button data-vote="like" class="rating-btn flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50">
+                        <i class="ri-thumb-up-line"></i><span>Нравится</span><span class="font-bold ml-2" data-count="likes">0</span>
+                    </button>
+                    <button data-vote="dislike" class="rating-btn flex items-center gap-2 px-4 py-2 border rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50">
+                        <i class="ri-thumb-down-line"></i><span>Не нравится</span><span class="font-bold ml-2" data-count="dislikes">0</span>
+                    </button>
+                </div>
+                <p id="rating-auth-prompt" class="hidden mt-4 text-gray-500">
+                    <a href="login.html" class="text-primary underline">Войдите</a>, чтобы ставить оценки.
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4">Комментарии</h2>
+                <p class="text-gray-500">Функция в разработке.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center"><p>© 2025 MovieSite. Все права защищены.</p></div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="js/toast.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/movie-details.js"></script>
+</body>
+</html>
